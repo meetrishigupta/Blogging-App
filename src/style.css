@@ -1,0 +1,72 @@
+body {
+  background-color: black;
+
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.App {
+  color: white;
+}
+
+form {
+  width: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: #333;
+  border-radius: 5px;
+}
+
+label {
+  margin-left: -10px;
+  display: block;
+  margin-bottom: 10px;
+}
+#description {
+  margin-left: -10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #555;
+  color: white;
+  border-radius: 3px;
+}
+input[type="text"],
+input[type="date"] {
+  margin-left: -10px;
+
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #555;
+  color: white;
+  border-radius: 3px;
+}
+
+input[type="submit"] {
+  margin-left: -10px;
+
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+nav h1 {
+  text-align: center;
+  color: rgb(91, 208, 212);
+}
