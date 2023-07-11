@@ -88,18 +88,32 @@ export default function Blog() {
         <input type="submit" onClick={handleSubmit} value="Publish" />
       </form>
       <hr />
+      <h1 className="latesth1">
+        Latest Posts
+      </h1>
       {blogs.map((i, index) => (
-        <div key={index}>
-          <h1>{i.title}</h1>
-          <h4>{i.description}</h4>
-          <h2>{i.date}</h2>
-          <img
+        <div className="wrapper" key={index}>
+          <div className="image-wrapper">
+            <img
             src={URL.createObjectURL(i.image)}
             alt="Uploaded"
-            style={{ width: "200px", height: "200px" }}
           />
+            <div className="datewrapper">
+              <p>
+                <h2>{i.date}</h2>
+              </p>
+            </div>
+            </div>
+            <div className="content-wrapper">
+              <h2>{i.title}</h2>
+              <p>{i.description}</p>
+              {/* <div>
+                <img src="./images/delete.svg"></img>
+              </div> */}
+            </div>
         </div>
-      ))}
+      ))} 
+
     </>
   );
 }
