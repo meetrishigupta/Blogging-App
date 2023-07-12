@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 body {
   background-color: rgb(255, 255, 255);
   margin: 0;
@@ -18,16 +19,24 @@ code {
   color: white;
 }
 
+input{
+  font-family: 'Raleway', sans-serif;
+}
 form {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   width: 500px;
   margin: 0 auto;
   padding: 40px;
-  background-color: #333;
-  border-radius: 5px;
+  border-radius: 0px 0px 20px 20px;
 }
 
 label {
+  color: rgb(46, 46, 46);
+  font-size: 14px;
   margin-left: -10px;
+  font-family: Inria Serif;
+  font-weight: bold;
   display: block;
   margin-bottom: 10px;
 }
@@ -40,9 +49,9 @@ label {
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: none;
-  background-color: #555;
-  color: white;
+  border: 1px solid #cccccc;
+  background-color: #eeeeee;
+  color: rgb(46, 46, 46);
   border-radius: 3px;
 }
 
@@ -55,21 +64,26 @@ input[type="date"] {
   margin-bottom: 10px;
   border: none;
   background-color: #555;
-  color: white;
+  border: 1px solid #cccccc;
+  background-color: #eeeeee;
   border-radius: 3px;
 }
 
 input[type="submit"] {
   margin-left: -10px;
 
-  background-color: #ff6600;
+  background-color: #5F00D8;
   color: white;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 3px;
 }
-
+.fielddate{
+  margin-top: 10px;
+}
+input[type="file"] {
+background-color: red;}
 
 .latesth1 {
   margin-left: 20px;
@@ -85,7 +99,8 @@ input[type="submit"] {
 }
 
 .wrapper {
-  margin-left: 20px;
+  margin: 20px;
+  margin-top: 50px;
   display: flex;
   flex-direction: row;
   width: 96%;
@@ -98,49 +113,66 @@ input[type="submit"] {
 }
 
 .datewrapper {
-  width: 134px;
-  height: 42px;
+  width: 173px;
+  height: 49px;
+  display: flex;
+  position: relative;
   flex-shrink: 0;
-  border-radius: 0px 20px 20px 0px;
+  border-radius: 0px 25px 25px 0px;
   background: #632DFF;
   margin-top: -90px;
   z-index: 1;
+  justify-content: center;
+  align-items: center;
 }
+
 .datewrapper p {
   color: #FFF;
   font-family: Inria Serif;
-  font-size: 20px;
+  font-size: 26px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-margin-top: 5px;
 }
-.content-wrapper h2{
+.content-wrapper{
+  display: flex;
+  flex-direction: column;
+}
+.content-wrapper h2 {
   margin-top: 0px;
-  margin-left: 30px;
+  margin-left: 20px;
   color: #632DFF;
-font-family: Inria Serif;
-font-size: 62px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  font-family: Inria Serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
-.content-wrapper p{
-  margin-left: 30px;
+
+.content-wrapper p {
+  margin-left: 18px;
   color: #000;
-  font-family: Raleway;
-  font-size: 20px;
+  font-family: 'Raleway', sans-serif;  font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-.delelteimage img{
-  position: absolute;
-  border-radius: 30px;
-  top: 1033px;
-  left: 1780px;
-  padding: 7px;
-  background-color: #FF4848;
-  width: 31px;
-  height: 31px;
+
+.delelteimage {
+  text-align: center;
+  margin-left: 18px;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  border-radius: 9px;
+  background-color: rgb(247, 66, 66);
+  width: 70px;
+  height: 45px;
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+.delelteimage:hover {
+  opacity: 0.8;
 }
