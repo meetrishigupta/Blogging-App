@@ -33,7 +33,9 @@ export default function Blog() {
       date: "",
     });
   };
-
+const readMore = ()=>{
+  if(formData.description>=)
+}
   return (
     <>
       <form>
@@ -87,7 +89,6 @@ export default function Blog() {
         />
         <input type="submit" onClick={handleSubmit} value="Publish" />
       </form>
-      <hr />
       <h1 className="latesth1">
         Latest Posts
       </h1>
@@ -107,9 +108,10 @@ export default function Blog() {
             <div className="content-wrapper">
               <h2>{i.title}</h2>
               <p>{i.description}</p>
-              {/* <div>
+              <p>Read More</p>
+              <div className="delelteimage">
                 <img src="./images/delete.svg"></img>
-              </div> */}
+              </div>
             </div>
         </div>
       ))} 

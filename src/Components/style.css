@@ -88,7 +88,6 @@ input[type="submit"] {
   margin-left: 20px;
   display: flex;
   flex-direction: row;
-  background-color: red;
   width: 96%;
 }
 
@@ -117,7 +116,8 @@ input[type="submit"] {
 margin-top: 5px;
 }
 .content-wrapper h2{
-  width: 300px;
+  margin-top: 0px;
+  margin-left: 30px;
   color: #632DFF;
 font-family: Inria Serif;
 font-size: 62px;
@@ -126,11 +126,21 @@ font-weight: 700;
 line-height: normal;
 }
 .content-wrapper p{
-  width: 300px;
+  margin-left: 30px;
   color: #000;
   font-family: Raleway;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+.delelteimage img{
+  position: absolute;
+  border-radius: 30px;
+  top: 1033px;
+  left: 1780px;
+  padding: 7px;
+  background-color: #FF4848;
+  width: 31px;
+  height: 31px;
 }
