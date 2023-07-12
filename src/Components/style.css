@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 body {
   background-color: rgb(255, 255, 255);
   margin: 0;
@@ -19,9 +20,10 @@ code {
   color: white;
 }
 
-input{
+input {
   font-family: 'Raleway', sans-serif;
 }
+
 form {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -72,8 +74,9 @@ input[type="date"] {
 button {
   margin-left: -10px;
   background-color: #5F00D8;
-  font-family: 'Raleway', sans-serif;  font-size: 20px;
-font-weight: 600;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
   color: white;
   font-size: 2vh;
   border: none;
@@ -81,11 +84,14 @@ font-weight: 600;
   cursor: pointer;
   border-radius: 3px;
 }
-.fielddate{
+
+.fielddate {
   margin-top: 10px;
 }
+
 input[type="file"] {
-background-color: red;}
+  background-color: red;
+}
 
 .latesth1 {
   margin-left: 20px;
@@ -136,10 +142,12 @@ background-color: red;}
   font-weight: 400;
   line-height: normal;
 }
-.content-wrapper{
+
+.content-wrapper {
   display: flex;
   flex-direction: column;
 }
+
 .content-wrapper h2 {
   margin-top: 0px;
   margin-left: 20px;
@@ -154,7 +162,8 @@ background-color: red;}
 .content-wrapper p {
   margin-left: 18px;
   color: #000;
-  font-family: 'Raleway', sans-serif;  font-size: 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -175,6 +184,7 @@ background-color: red;}
   justify-content: center;
   align-items: center;
 }
+
 .delelteimage:hover {
   opacity: 0.8;
 }
