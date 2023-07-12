@@ -69,11 +69,13 @@ input[type="date"] {
   border-radius: 3px;
 }
 
-input[type="submit"] {
+button {
   margin-left: -10px;
-
   background-color: #5F00D8;
+  font-family: 'Raleway', sans-serif;  font-size: 20px;
+font-weight: 600;
   color: white;
+  font-size: 2vh;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
