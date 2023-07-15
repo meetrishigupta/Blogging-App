@@ -186,5 +186,6 @@ input[type="file"] {
 }
 
 .delelteimage:hover {
+  cursor: pointer;
   opacity: 0.8;
 }

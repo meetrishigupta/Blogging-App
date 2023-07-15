@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 
 export default function Blog() {
@@ -9,6 +9,10 @@ export default function Blog() {
     date: "",
   });
   const [blogs, setBlogs] = useState([]);
+
+  const Titleref = useRef("rishi")
+  useEffect(()=>{Titleref.current.focus()},[])
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -26,6 +30,7 @@ export default function Blog() {
       },
       ...blogs,
     ]);
+    // Titleref.current.focus
     setFormData({
       title: "",
       description: "",
@@ -34,6 +39,9 @@ export default function Blog() {
     });
   };
 
+const removeBlog = (i) =>{
+  setBlogs(blogs.filter((blog,index) => i!==index))
+}
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -43,6 +51,7 @@ export default function Blog() {
           id="title"
           name="title"
           value={formData.title}
+          ref={Titleref}
           onChange={(e) =>
             setFormData({
               ...formData,
@@ -98,26 +107,25 @@ export default function Blog() {
       <h1 className="latesth1">
         Latest Posts
       </h1>
-      {blogs.map((i, index) => (
-        <div className="wrapper" key={index}>
+      {blogs.map((blog, i) => (
+        <div className="wrapper" key={i}>
           <div className="image-wrapper">
             <img
-              src={URL.createObjectURL(i.image)}
+              src={URL.createObjectURL(blog.image)}
               alt="Uploaded"
             />
             <div className="datewrapper">
               <p>
-                {i.date}
+                {blog.date}
               </p>
             </div>
 
           </div>
           <div className="content-wrapper">
-            <h2>{i.title}</h2>
-            <p>{i.description}</p>
+            <h2>{blog.title}</h2>
+            <p>{blog.description}</p>
 
-            <a className="delelteimage" href="#">Delete</a>
-
+            <a className="delelteimage" onClick={() => removeBlog(i)}>Delete</a>
           </div>
 
 
