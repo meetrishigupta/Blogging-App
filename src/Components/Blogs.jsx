@@ -1,6 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import "./style.css";
 
+function BlogsReducer(state, action) {
+  switch (action.type) {
+    case "ADD":
+      return [action.blog, ...state]
+    case "REMOVE": return state.filter((blog, index) => index !== action.index)
+    default:
+      return []
+  }
+
+}
 export default function Blog() {
   const [formData, setFormData] = useState({
     title: "",
@@ -8,11 +18,10 @@ export default function Blog() {
     image: null,
     date: "",
   });
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, dispatch] = useReducer(BlogsReducer, [])
+  const Titleref = useRef(null)
 
-  const Titleref = useRef("rishi")
-  useEffect(()=>{Titleref.current.focus()},[])
-
+  useEffect(() => { Titleref.current.focus() }, [blogs])
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -21,16 +30,14 @@ export default function Blog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBlogs([
-      {
+    dispatch({
+      type: "ADD", blog: {
         title: formData.title,
         description: formData.description,
         image: formData.image,
         date: formData.date,
-      },
-      ...blogs,
-    ]);
-    // Titleref.current.focus
+      }
+    })
     setFormData({
       title: "",
       description: "",
@@ -39,9 +46,9 @@ export default function Blog() {
     });
   };
 
-const removeBlog = (i) =>{
-  setBlogs(blogs.filter((blog,index) => i!==index))
-}
+  const removeBlog = (i) => {
+    dispatch({ type: "REMOVE", index: i })
+  }
   return (
     <>
       <form onSubmit={handleSubmit}>
