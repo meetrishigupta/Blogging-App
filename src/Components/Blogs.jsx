@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import "./style.css";
+import { db } from "../FirebaseInit";
 
 function BlogsReducer(state, action) {
   switch (action.type) {
