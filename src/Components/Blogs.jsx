@@ -1,17 +1,19 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import "./style.css";
 import { db } from "../FirebaseInit";
+import { collection, addDoc } from "firebase/firestore";
 
 function BlogsReducer(state, action) {
   switch (action.type) {
     case "ADD":
-      return [action.blog, ...state]
-    case "REMOVE": return state.filter((blog, index) => index !== action.index)
+      return [action.blog, ...state];
+    case "REMOVE":
+      return state.filter((blog, index) => index !== action.index);
     default:
-      return []
+      return state; // Return the current state in case of an unknown action
   }
-
 }
+
 export default function Blog() {
   const [formData, setFormData] = useState({
     title: "",
@@ -19,26 +21,53 @@ export default function Blog() {
     image: null,
     date: "",
   });
-  const [blogs, dispatch] = useReducer(BlogsReducer, [])
-  const Titleref = useRef(null)
+  const [blogs, dispatch] = useReducer(BlogsReducer, []);
+  const Titleref = useRef(null);
+  const [imagePreview, setImagePreview] = useState(""); // Separate state for image preview URL
 
-  useEffect(() => { Titleref.current.focus() }, [blogs])
+  useEffect(() => {
+    Titleref.current.focus();
+    // Clean up the object URL when the component unmounts
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file });
+
+    // Generate image preview URL
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    } else {
+      setImagePreview("");
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch({
-      type: "ADD", blog: {
+      type: "ADD",
+      blog: {
         title: formData.title,
         description: formData.description,
         image: formData.image,
         date: formData.date,
-      }
-    })
+      },
+    });
+
+    // Add a new document with a generated id.
+    const docRef = await addDoc(collection(db, "blogs"), {
+      Title: formData.title,
+      Description: formData.description,
+      Date: formData.date,
+      setdate: new Date(),
+    });
+    console.log("Document written with ID: ", docRef.id);
+
     setFormData({
       title: "",
       description: "",
@@ -48,8 +77,9 @@ export default function Blog() {
   };
 
   const removeBlog = (i) => {
-    dispatch({ type: "REMOVE", index: i })
-  }
+    dispatch({ type: "REMOVE", index: i });
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -95,7 +125,9 @@ export default function Blog() {
           }}
           required
         />
-        <label className="fielddate" htmlFor="date">Date:</label>
+        <label className="fielddate" htmlFor="date">
+          Date:
+        </label>
         <input
           type="date"
           id="date"
@@ -112,35 +144,25 @@ export default function Blog() {
         <button type="submit">Publish</button>
       </form>
 
-      <h1 className="latesth1">
-        Latest Posts
-      </h1>
+      <h1 className="latesth1">Latest Posts</h1>
       {blogs.map((blog, i) => (
         <div className="wrapper" key={i}>
           <div className="image-wrapper">
-            <img
-              src={URL.createObjectURL(blog.image)}
-              alt="Uploaded"
-            />
+            {/* Use imagePreview state to show the image preview */}
+            {imagePreview && <img src={imagePreview} alt="Uploaded" />}
             <div className="datewrapper">
-              <p>
-                {blog.date}
-              </p>
+              <p>{blog.date}</p>
             </div>
-
           </div>
           <div className="content-wrapper">
             <h2>{blog.title}</h2>
             <p>{blog.description}</p>
-
-            <a className="delelteimage" onClick={() => removeBlog(i)}>Delete</a>
+            <a className="delelteimage" onClick={() => removeBlog(i)}>
+              Delete
+            </a>
           </div>
-
-
-
         </div>
       ))}
-
     </>
   );
 }
