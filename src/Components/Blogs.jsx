@@ -1,18 +1,11 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+
+
+
+
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import { db } from "../FirebaseInit";
-import { collection, doc, setDoc } from "firebase/firestore";
-
-function BlogsReducer(state, action) {
-  switch (action.type) {
-    case "ADD":
-      return [action.blog, ...state];
-    case "REMOVE":
-      return state.filter((blog, index) => index !== action.index);
-    default:
-      return state; // Return the current state in case of an unknown action
-  }
-}
+import { collection, doc, setDoc, getDocs } from "firebase/firestore";
 
 export default function Blog() {
   const [formData, setFormData] = useState({
@@ -21,7 +14,7 @@ export default function Blog() {
     image: null,
     date: "",
   });
-  const [blogs, dispatch] = useReducer(BlogsReducer, []);
+  const [blogs, setBlogs] = useState([]);
   const Titleref = useRef(null);
   const [imagePreview, setImagePreview] = useState(""); // Separate state for image preview URL
 
@@ -34,6 +27,24 @@ export default function Blog() {
       }
     };
   }, [imagePreview]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const snapshot = await getDocs(collection(db, "blogs"));
+      const blogsData = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+
+      // Set the fetched blogs to the state using useState
+      setBlogs(blogsData);
+      console.log(blogsData);
+    }
+
+    fetchData();
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -49,19 +60,19 @@ export default function Blog() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch({
-      type: "ADD",
-      blog: {
+    setBlogs((prevBlogs) => [
+      ...prevBlogs,
+      {
         title: formData.title,
         description: formData.description,
         image: formData.image,
         date: formData.date,
       },
-    });
+    ]);
 
     // Add a new document with a generated id.
- const docRef = doc(collection(db,"blogs"))
-   await setDoc(docRef, {
+    const docRef = doc(collection(db, "blogs"));
+    await setDoc(docRef, {
       Title: formData.title,
       Description: formData.description,
       Date: formData.date,
@@ -77,12 +88,12 @@ export default function Blog() {
   };
 
   const removeBlog = (i) => {
-    dispatch({ type: "REMOVE", index: i });
+    setBlogs((prevBlogs) => prevBlogs.filter((blog, index) => index !== i));
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
         <label htmlFor="title">Title:</label>
         <input
           type="text"
@@ -148,8 +159,7 @@ export default function Blog() {
       {blogs.map((blog, i) => (
         <div className="wrapper" key={i}>
           <div className="image-wrapper">
-            {/* Use imagePreview state to show the image preview */}
-            {imagePreview && <img src={imagePreview} alt="Uploaded" />}
+            {blog.image && <img src={URL.createObjectURL(blog.image)} alt="Uploaded" />}
             <div className="datewrapper">
               <p>{blog.date}</p>
             </div>
