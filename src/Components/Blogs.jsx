@@ -24,6 +24,24 @@ export default function Blog() {
     };
   }, [imagePreview]);
 
+  useEffect(() => {
+    async function fetchData() {
+      const snapshot = await getDocs(collection(db, "blogs"));
+      const blogsData = snapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+
+      // Set the fetched blogs to the state using useState
+      setBlogs(blogsData);
+      console.log(blogsData);
+    }
+
+    fetchData();
+  }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, image: file });
@@ -36,27 +54,19 @@ export default function Blog() {
     }
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      const snapShot = await getDocs(collection(db, "blogs"));
-      const blogsData = snapShot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-        };
-      });
-
-      console.log(blogsData);
-
-      setBlogs(blogsData);
-    }
-
-    fetchData();
-  }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    Titleref.current.focus();
+    setBlogs((prevBlogs) => [
+      ...prevBlogs,
+      {
+        title: formData.title,
+        description: formData.description,
+        image: formData.image,
+        date: formData.date,
+      },
+    ]);
+
+    // Add a new document with a generated id.
     const docRef = doc(collection(db, "blogs"));
     await setDoc(docRef, {
       Title: formData.title,
