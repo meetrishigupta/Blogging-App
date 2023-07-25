@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
 import { db } from "../FirebaseInit";
-import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 
 export default function Blog() {
   const [formData, setFormData] = useState({
@@ -23,24 +23,6 @@ export default function Blog() {
       }
     };
   }, [imagePreview]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const snapshot = await getDocs(collection(db, "blogs"));
-      const blogsData = snapshot.docs.map((doc) => {
-        return {
-          id: doc.id,
-          ...doc.data(),
-        };
-      });
-
-      // Set the fetched blogs to the state using useState
-      setBlogs(blogsData);
-      console.log(blogsData);
-    }
-
-    fetchData();
-  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
